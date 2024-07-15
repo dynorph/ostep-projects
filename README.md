@@ -27,14 +27,9 @@ prompt>
 
 ### Initial Projects
 
-Esse projeto tem o objetivo de te aquecer na programação C/Linux
-These projects are meant to get you warmed up with programming in the C/UNIX
-environment. None are meant to be particularly hard, but should be enough so
-that you can get more comfortable programming. 
+Esse projeto tem o objetivo de te aquecer na programação C/Linux. Nenhum dos programas que você terá que desenvolver é particularmente difícil, mas deve ser o suficiente para te deixar mais confortável com a programação. 
 
-Realize the best thing you can do to learn to program in any environment is to
-program **a lot**. These small projects are only the beginning of that
-journey; you'll have to do more on your own to truly become proficient.
+Note que a melhor coisa que você pode fazer para apredner a programar em qualquer ambiente é **programar bastante**. Os pequenos programas inclusos nesse projeto são só o início dessa jornada; você terá que executar mais projetos por conta própria para se tornar proficiente.
 
 * [Unix Utilities](initial-utilities) (cat, grep, zip/unzip)
 * Sort (text-based)
