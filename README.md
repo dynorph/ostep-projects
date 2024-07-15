@@ -23,10 +23,11 @@ prompt>
 ```
 É claro que a sequência acima supõe que: a) você utiliza o editor `emacs` para escrever o código de wcat.c, (b) Seu código é escrito todo de uma vez (incrível) e (c) seu código compila e executa perfeitamente (parabéns!). Mesmo para projetos simples, é provável que ciclo compilação/execução/depuração seja executado por alguma iterações.
 
-## C/Linux Projects
+## Projetos C/Linux
 
 ### Initial Projects
 
+Esse projeto tem o objetivo de te aquecer na programação C/Linux
 These projects are meant to get you warmed up with programming in the C/UNIX
 environment. None are meant to be particularly hard, but should be enough so
 that you can get more comfortable programming. 
