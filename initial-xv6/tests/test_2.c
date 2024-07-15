@@ -1,6 +1,5 @@
-#include "types.h"
-#include "stat.h"
-#include "user.h"
+#include "kernel/types.h"
+#include "user/user.h"
 
 int
 main(int argc, char *argv[]) {
@@ -18,10 +17,10 @@ main(int argc, char *argv[]) {
     // (void) shutdown();
 
     if (rc > 0) {
-	(void) wait();
+	(void) wait(0);
 	int x2 = getreadcount();
 	total += (x2 - x1);
-	printf(1, "XV6_TEST_OUTPUT %d\n", total);
+	fprintf(1, "XV6_TEST_OUTPUT %d\n", total);
     }
-    exit();
+    exit(1);
 }
