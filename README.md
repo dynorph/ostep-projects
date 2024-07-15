@@ -1,24 +1,15 @@
 
 # Projects for an Operating Systems Class
 
-This repository holds a number of projects that can be used in an operating
-systems class aimed at upper-level undergraduates and (in some cases)
-beginning graduate students. They are based on years of teaching such a course
-at the University of Wisconsin-Madison.
+Esse repositório contém um conjunto de projetos que podem ser utilizados em disciplinas de sistemas operacionais ofertadas em cursos de graduação em computação (ou áreas afins). Na realidade, esse repositório é um fork de https://github.com/remzi-arpacidusseau/ostep-projects.git. No repositório original, os projetos que lidam com o Xv6 utilizam sua versão para a arquitetura x86, a qual não é mais suportada. Dessa forma, a ideia deste repositório é portar os projetos para operarem com a versão do sistema Xv6 para arquitetura RISC-V e traduzir a descrição dos projetos, de forma a facilitar o aprendizado para alunos que não dominam o idioma inglês.
 
-Also (increasingly) available are some tests to see if your code works; eventually
-every project will have a set of tests available. The testing framework that is
-currently available is found [here](https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/tester).
-A specific testing script, found in each project directory, can be used to run
-the tests against your code. 
+Além dos projetos em si, o repositório também contém um framework para executar tests automatizados. Eventualmente, todos os projetos terão um conjunto de `testes` disponível. O framework de testes pode ser encontrado [aqui](https://github.com/igorcompuff/ostep-projects/tree/master/tester). Cada projeto possui um script que pode ser utilizado para executar os seus testes automatizados.
 
-For example, in the initial utilities project, the relatively simple `wcat`
-program that you create can be tested by running the `test-wcat.sh` script.
-This could be accomplished by the following commands:
+Por exmeplo, no projeto initial utilities, o programa `wcat` pode ser testado executando-se o script `test-wcat.sh`. Isso pode ser feito através dos seguintes comandos:
 ```sh
 prompt> git clone https://github.com/remzi-arpacidusseau/ostep-projects
 prompt> cd ostep-projects/initial-utilities/wcat
-prompt> emacs -nw wcat.c 
+prompt> emacs -nw wcat.c
 prompt> gcc -o wcat wcat.c -Wall 
 prompt> ./test-wcat.sh
 test 1: passed
@@ -30,10 +21,7 @@ test 6: passed
 test 7: passed
 prompt> 
 ```
-Of course, this sequence assumes (a) you use `emacs` (you should!), (b) your
-code is written in one shot (impressive!), and (c) that it works perfectly
-(well done!). Even for simple assignments, it is likely that the
-compile/run/debug cycle might take a few iterations.
+É claro que a sequência acima supõe que: a) você utiliza o editor `emacs` para escrever o código de wcat.c, (b) Seu código é escrito todo de uma vez (incrível) e (c) seu código compila e executa perfeitamente (parabéns!). Mesmo para projetos simples, é provável que ciclo compilação/execução/depuração seja executado por alguma iterações.
 
 ## C/Linux Projects
 
