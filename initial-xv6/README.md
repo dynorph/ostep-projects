@@ -1,17 +1,9 @@
 
 # Intro To Kernel Hacking
 
-To develop a better sense of how an operating system works, you will also 
-do a few projects *inside* a real OS kernel. The kernel we'll be using is a
-port of the original Unix (version 6), and is runnable on modern x86
-processors. It was developed at MIT and is a small and relatively
-understandable OS and thus an excellent focus for simple projects.
+Para compreender melhor o funcionamento de um sistema operacional, você também irá desenvolver alguns projetos dentro de um sistema operacional real. O kernel que iremos utilizar, chamado de [Xv6](https://github.com/mit-pdos/xv6-public) e desenvolvido no MIT, é baseado no Unix e foi originalmente projetado para a arquitetura x86, tendo sido portado para a arquitteura RISC-v (esta é a única versáo suportada atualmente). Uma vez que o Xv6 é um kernel reduzido e seu código-fonte é de compreensão relativamente fácil, podemos utilizá-lo para desenvolver projetos simples como parte do curso de Sistemas Operacionais.
 
-This first project is just a warmup, and thus relatively light on work. The
-goal of the project is simple: to add a system call to xv6. Your system call,
-**getreadcount()**, simply returns how many times that the **read()** system
-call has been called by user processes since the time that the kernel was
-booted. 
+O nosso primeiro projeto no Xv6 é um aquecimento e, portanto, não é muito trabalhoso. O objetivo do projeto é simples: incluir uma nova chamada de sistema no RISC-V. Essa nova chamada de sistema, **getreadcount()**, simplesmente retorna quantas vezes a chamada de sistema **read()** foi executada desde o último boot.
 
 ## Background
 
