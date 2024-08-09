@@ -33,7 +33,7 @@ tool!
 
 # Executando Testes
 
-Se você está utilizando a máquina virtual fornecida no curso, entyão seu diretório de usuário deve conter os seguintes diretórios:
+Se você está utilizando a máquina virtual fornecida no curso, entyão seu diretório ~/SO_Projetos deve possuir a seguinte estrutura:
 
 ```sh
 aluno@Ubuntu-OS:~$ ls SO_Projetos
@@ -64,6 +64,12 @@ Agora você pode modificar o código do xv6 em ostep-projects/initial-xv6/src pa
 
 ```sh
 aluno@Ubuntu-OS:~/SO_Projetos/ostep-projects/initial-xv6$ ./test-getreadcounts.sh
+```
+
+Entretanto, o framework de testes possui algumas dependências que não estão pré-instaladas na máquina virtual fornecida. Para instalar essas dependências, execute o seguinte comando:
+
+```sh
+aluno@Ubuntu-OS:~/SO_Projetos/ostep-projects/initial-xv6$ sudo apt install gawk expect
 ```
 
 Se você implementou tudo corretamente você verá a uma mensagem para cada teste informando que o teste passou. Caso contrário, ...
