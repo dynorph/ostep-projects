@@ -1,38 +1,27 @@
 
 # Unix Utilities
 
-**Before beginning:** Read this [lab tutorial](http://pages.cs.wisc.edu/~remzi/OSTEP/lab-tutorial.pdf); it has some useful tips for programming in the C environment.
+**Antes de Começar:** Leia esse [tutorial](http://pages.cs.wisc.edu/~remzi/OSTEP/lab-tutorial.pdf); ele contém algumas informações úteis para programação em c.
 
-In this project, you'll build a few different UNIX utilities, simple versions
-of commonly used commands like **cat**, **ls**, etc. We'll call each of them a
-slightly different name to avoid confusion; for example, instead of **cat**,
-you'll be implementing **wcat** (i.e., "wisconsin" cat).
+Neste projeto, você irá desenvolver uma versão simplificada dos comandos UNIX **cat**, **grep**, **zip** e **unzip**. Para não haver confusão, utilize os nomes **wcat**, **wgrep**, **wzip** e **wunzip**, respectivamente.
 
-Objectives:
-* Re-familiarize yourself with the C programming language
-* Re-familiarize yourself with a shell / terminal / command-line of UNIX
-* Learn (as a side effect) how to use a proper code editor such as emacs
-* Learn a little about how UNIX utilities are implemented
+Objetivos:
+* Se (re)familiarizar com a linguagem de programação c;
+* Se (re)familiarizar com a utilização de um shell / terminal / linha de comando UNIX;
+* Aprender (como efeito colateral) como utilizar um editor de código, como o visual studio code;
+* Aprender um pouco sobre como os comandos UNIX são implementados.
 
-While the project focuses upon writing simple C programs, you can see from the
-above that even that requires a bunch of other previous knowledge, including a
-basic idea of what a shell is and how to use the command line on some
-UNIX-based systems (e.g., Linux or macOS), how to use an editor such as emacs,
-and of course a basic understanding of C programming. If you **do not** have
-these skills already, this is not the right place to start.
+Ainda que este projeto foque em escrever programas simples em C, você pode observar, a partir da listagem acima, que mesmo essa tarefa relativamente simples requer um conjunto de outros conhecimentos, incluindo uma ideia básica do que é um shell e como utilizar a linha de comando em sistemas baseados em UNIX, como o Linux e o macOS, como utilizar um editor de código como o visual studio code e, obviamnete, uma compreensão básica de progrtamação em c. Se você ainda **não tem** essas habilidades, vai precisar correr atrás.
 
-Summary of what gets turned in:
-* A bunch of single .c files for each of the utilities below: **wcat.c**,
-  **wgrep.c**, **wzip.c**, and **wunzip.c**.
-* Each should compile successfully when compiled with the **-Wall** and
-**-Werror** flags.
-* Each should (hopefully) pass the tests we supply to you.
+Resumo do que deve ser entregue:
+* Os arquivos .c dos comando que você desenvolveu: **wcat.c**, **wgrep.c**, **wzip.c**, and **wunzip.c**.
+* Todos os arquivos devem compilar sem erros mesmo utilizando as flags **-Wall** e **-Werror**.
+* Todos os arquivos devem passar em todos os testes fornecidos. Cada teste que falhar irá representar uma redução de 1/N na nota do projeto, onde N é o número de testes fornecidos.
 
 ## wcat
 
-The program **wcat** is a simple program. Generally, it reads a file as
-specified by the user and prints its contents. A typical usage is as follows,
-in which the user wants to see the contents of main.c, and thus types: 
+O programa **wcat** é bastante simples. Ele recebe como argumento um ou mais arquivos, os quais são lidos e seu conteúdo é impresso. 
+Uma utilização típica é mostrada abaixo, onde o usuártios deseja imprimir o conteúdo do arquivo main.c: 
 
 ```
 prompt> ./wcat main.c
@@ -40,57 +29,31 @@ prompt> ./wcat main.c
 ...
 ```
 
-As shown, **wcat** reads the file **main.c** and prints out its contents. 
-The "**./**" before the **wcat** above is a UNIX thing; it just tells the
-system which directory to find **wcat** in (in this case, in the "." (dot)
-directory, which means the current working directory). 
+Como mostrado, **wcat** lê o arquivo **main.c** e imprime seu conteúdo na tela. O "**./**" antes de **wcat** é uma característica do UNIX (o "**.**" indica o diretório atual). 
 
-To create the **wcat** binary, you'll be creating a single source file,
-**wcat.c**, and writing a little C code to implement this simplified version
-of **cat**. To compile this program, you will do the following:
+Após escrever o código de **wcat.c**, você irá compilá-lo da seguinte forma:
 
 ```
 prompt> gcc -o wcat wcat.c -Wall -Werror
 prompt> 
 ```
 
-This will make a single *executable binary* called **wcat** which you can
-then run as above. 
+Isso irá criar o arquivo executável **wcat**, o qual você pode executar como mostrado anteriormente. 
 
-You'll need to learn how to use a few library routines from the C standard
-library (often called **libc**) to implement the source code for this program,
-which we'll assume is in a file called **wcat.c**. All C code is
-automatically linked with the C library, which is full of useful functions you
-can call to implement your program. Learn more about the C library
-[here](https://en.wikipedia.org/wiki/C_standard_library) and perhaps
-[here](https://www-s.acm.illinois.edu/webmonkeys/book/c_guide/)<sup>[1](#myfootnote1)</sup>.  
+Você precisará aprender como utilizar algumas funções da biblioteca padrão da linguagem c (comumente chamada de **libc**) para escrever o código deste programa. Ao compilar o programa como mostrado acima, a **libc** é automaticamente linkada com o binário, permitindo que o seu código tenha acesso a um amblo conjunto de funções úteis que você pode chamar para implementar o seu programa. Leia mais sobre a **libc** [aqui](https://en.wikipedia.org/wiki/C_standard_library) e também [aqui](https://www-s.acm.illinois.edu/webmonkeys/book/c_guide/)<sup>[1](#myfootnote1)</sup>.  
 
-For this project, we recommend using the following routines to do file input
-and output: **fopen()**, **fgets()**, and **fclose()**. Whenever you use a new
-function like this, the first thing you should do is read about it -- how else
-will you learn to use it properly?
+Para esse projeto, é recomendada a utilização das seguintes funções para manipular arquivos: **fopen()**, **fgets()** e **fclose()**. Sempre que você precisar utilizar uma função nova, como nesse caso, a primeira coisa que você deve fazer é ler a documentação dela. Nos sistema baseados em UNIX, a melhor maneira de ler sobre determinada função é utilizar o manual, chamado de **man** pages. A primeira vista, o manual pode parecer um pouco antiquado, mas ele é útil, informativo e geralmente fácil de utilizar.
 
-On UNIX systems, the best way to read about such functions is to use what are
-called the **man** pages (short for **manual**). In our HTML/web-driven world,
-the man pages feel a bit antiquated, but they are useful and informative and
-generally quite easy to use.
-
-To access the man page for **fopen()**, for example, just type the following
-at your UNIX shell prompt: 
+Para acessar as páginas do manual para a função **fopen()**, por exemplo, digite o seguinte comando no shell do seu sistema: 
 ```
 prompt> man fopen
 ```
 
-Then, read! Reading man pages effectively takes practice; why not start
-learning now?
+A partir daí, leia! Ler as páginas do manual é algo que exige prática, então por que não começar agora?
 
-We will also give a simple overview here. The **fopen()** function "opens" a
-file, which is a common way in UNIX systems to begin the process of file
-access. In this case, opening a file just gives you back a pointer to a
-structure of type **FILE**, which can then be passed to other routines to
-read, write, etc. 
+Daremos também uma visão geral aqui. A função **fopen()** "abre" um arquivo. Esse é um modo comum de iniciar o acesso a um arquivo em sistemas UNIX. A função **fopen()** retorna um ponteiro para uma struct do tipo **FILE**, o qual pode ser usado como argumento em outras funções que manipulam arquivos. 
 
-Here is a typical usage of **fopen()**:
+O trecho de código abaixo ilustra uma utilização típica de **fopen()**:
 
 ```c
 FILE *fp = fopen("main.c", "r");
@@ -100,83 +63,35 @@ if (fp == NULL) {
 }
 ```
 
-A couple of points here. First, note that **fopen()** takes two arguments: the
-*name* of the file and the *mode*. The latter just indicates what we plan to
-do with the file. In this case, because we wish to read the file, we pass "r"
-as the second argument. Read the man pages to see what other options are
-available. 
+Algumas observações importantes. Primeiro, note que **fopen()** recebe dois argumentos, sendo o primeiro o *nome* do arquivo e o modo no qual o arquivo será aberto, o qual indica o que queremos fazer com o arquivo. No exemplo acima queremos abrir o arquivo "main.c" apenas para leitura (modo = "r"). Leia o manual para saber quais outras opções estão disponíveis. Segundo, note que após chamar a função **fopen()** devemos verificar se ela foi bem sucedida ou não, pois caso não tenha sido, o valor do ponteiro retornado será NULL. Diferente de outras linguagens como Java, C# e C++, não há excessões em c. Normalmente as funções indicam seu sucesso ou falha pelo valor retornado por elas. Leia o manual para mais informações.
 
-Second, note the *critical* checking of whether the **fopen()** actually
-succeeded. This is not Java where an exception will be thrown when things goes
-wrong; rather, it is C, and it is expected (in good programs, i.e., the
-only kind you'd want to write) that you always will check if the call
-succeeded. Reading the man page tells you the details of what is returned when
-an error is encountered; in this case, the macOS man page says:
+Terceiro, note que quando o caso de erro ocorre, o programa imprime uma mensagem e termina com código de status 1. No UNIX, a tradição sugere que em caso de sucesso, o programa deve retornar 0 e, caso contrário, deve retornar um valor diferente de zero. No nosso exemplo, utilizamos 1 para indicar a falha.
 
-```
-Upon successful completion fopen(), fdopen(), freopen() and fmemopen() return
-a FILE pointer.  Otherwise, NULL is returned and the global variable errno is
-set to indicate the error. 
-```
+Observação: existem diversas causas que podem levar a função **fopen()** a falhar. Você pode utilizar as funções **perror()** ou **strerror()** para imprimir uma mensagem informativa sobre a causa da falha. Para seber mais, leia o manual para essas funções.
 
-Thus, as the code above does, please check that **fopen()** does not return
-NULL before trying to use the FILE pointer it returns.
-
-Third, note that when the error case occurs, the program prints a message and
-then exits with error status of 1. In UNIX systems, it is traditional to
-return 0 upon success, and non-zero upon failure. Here, we will use 1 to
-indicate failure.
-
-Side note: if **fopen()** does fail, there are many reasons possible as to
-why.  You can use the functions **perror()** or **strerror()** to print out
-more about *why* the error occurred; learn about those on your own (using
-... you guessed it ... the man pages!).
-
-Once a file is open, there are many different ways to read from it. The one
-we're suggesting here to you is **fgets()**, which is used to get input from
-files, one line at a time. 
-
-To print out file contents, just use **printf()**. For example, after reading
-in a line with **fgets()** into a variable **buffer**, you can just print out
-the buffer as follows:
+Uma vez que o arquivo é aberto, existem diferentes maneira de ler seus dados. A que estamos sugerindo aqui é fazer a leitura através da função **fgets()**, a qual é utilizada para ler arquivos de texto uma linha por vez. Para imprimir o conteúdo de um arquivo, simplesmnete utilize a função **printf()**. Por exmeplo, depois de ler uma linha do arquivo com a função **fgets()** para a variável **buffer**, você pode imprimir essa linha da seguinte maneira:
 
 ```c
 printf("%s", buffer);
 ```
 
-Note that you should *not* add a newline (\\n) character to the printf(),
-because that would be changing the output of the file to have extra
-newlines. Just print the exact contents of the read-in buffer (which, of
-course, many include a newline).
+Note que você não deve adicionar um caractere de nova linha (\\n) à string de formatação, pois a função **printf()** já inclui automaticamnete o caractere de nova linha.
 
-Finally, when you are done reading and printing, use **fclose()** to close the
-file (thus indicating you no longer need to read from it).
+Por fim, quando você tiver terminado de ler e imprimir todsas as linhas do arquivo, utilize a função **fclose()** para fechar o arquivo (assim indicando que você não precisa mais fazer sua leitura).
 
-**Details**
+**Detalhes**
 
-* Your program **wcat** can be invoked with one or more files on the command
-  line; it should just print out each file in turn. 
-* In all non-error cases, **wcat** should exit with status code 0, usually by
-  returning a 0 from **main()** (or by calling **exit(0)**).
-* If *no files* are specified on the command line, **wcat** should just exit
-  and return 0. Note that this is slightly different than the behavior of 
-  normal UNIX **cat** (if you'd like to, figure out the difference).
-* If the program tries to **fopen()** a file and fails, it should print the
-  exact message "wcat: cannot open file" (followed by a newline) and exit
-  with status code 1.  If multiple files are specified on the command line,
-  the files should be printed out in order until the end of the file list is
-  reached or an error opening a file is reached (at which point the error
-  message is printed and **wcat** exits). 
+* Seu programa **wcat** deve ser implementado de forma a permitir um ou mais arquivos como argumento. Se dois ou mais arquivos forem fornecidos, **wcat** deve imprimir o conteúdo de cada um deles, um por um;
+* Sempre que nenhum erro ocorrer, **wcat** deve retornar o código de status 0 (usualmente através de um return 0 na função **main()** ou chamando a função **exit(0)**;
+* Se nenhum arquivo for especificado na linha de comando, **wcat** deverá simplesmente encerrar, retornando 0. Note que esse comportamento é ligeiramente diferente daquele apresentado pelo programa **cat** do UNIX (verifique !);
+* Se a chamada para **fopen()** falhar, **wcat** deverá imprimir exatamnete a seguinte mensagem, seguida por uma nova linha: "wcat: cannot open file". Após imprimir a mensagem, o programa deve encerrar com código de status 1. Se múltiplos arquivos forem especificados na linha de comando, os arquivos devem ser impressos em ordem até a última linha do último arquivo ou até que uma falha de abertura de arquivo ocorra (caso onde **wcat** imprime a mensagem de erro e encerra, como explicado anteriormente). 
 
 
 ## wgrep
 
-The second utility you will build is called **wgrep**, a variant of the UNIX
-tool **grep**. This tool looks through a file, line by line, trying to find a
-user-specified search term in the line. If a line has the word within it, the
-line is printed out, otherwise it is not. 
+O segundo programa que você irá desenvolver é chamado de **wgrep** e é uma variação simplificada do comando UNIX **grep**. Esse programa lê um arquivo linha por linha buscando por um padrão fornecido pelo usuário. Somente as linhas que contiverem o padrão serão impressas. 
 
-Here is how a user would look for the term **foo** in the file **bar.txt**:
+Esse é um exemplo de como o usuário poderia utilizar o **wgrep** para imprimir linhas que contenham a palavra **"foo"** no arquivo **bar.txt**:
 
 ```
 prompt> ./wgrep foo bar.txt
@@ -185,112 +100,65 @@ so does this foolish line; do you see where?
 even this line, which has barfood in it, will be printed.
 ```
 
-**Details**
+**Detalhes**
 
-* Your program **wgrep** is always passed a search term and zero or
-  more files to grep through (thus, more than one is possible). It should go
-  through each line and see if the search term is in it; if so, the line
-  should be printed, and if not, the line should be skipped.
-* The matching is case sensitive. Thus, if searching for **foo**, lines
-  with **Foo** will *not* match.
-* Lines can be arbitrarily long (that is, you may see many many characters
-  before you encounter a newline character, \\n). **wgrep** should work
-  as expected even with very long lines. For this, you might want to look
-  into the **getline()** library call (instead of **fgets()**), or roll your
-  own. 
-* If **wgrep** is passed no command-line arguments, it should print
-  "wgrep: searchterm [file ...]" (followed by a newline) and exit with
-  status 1.  
-* If **wgrep** encounters a file that it cannot open, it should print
-  "wgrep: cannot open file" (followed by a newline) and exit with status 1. 
-* In all other cases, **wgrep** should exit with return code 0.
-* If a search term, but no file, is specified, **wgrep** should work,
-  but instead of reading from a file, **wgrep** should read from
-  *standard input*. Doing so is easy, because the file stream **stdin**
-  is already open; you can use **fgets()** (or similar routines) to
-  read from it.
-* For simplicity, if passed the empty string as a search string, **wgrep**
-  can either match NO lines or match ALL lines, both are acceptable.
+* Os argumentos de linha de comando para o programa **wgrep** são um termo de busca e zero ou mais arquivos, onde o termo será buscado (ou seja, é possível buscar em mais de um arquivo). O processamento será feito linha a linha 
+  para cada cada arquivo passado como argumento via linha de comando, onde a linha será impressa somente se ela contiver o termo de busca;
+* A comparação do termo de busca com cada linha deve ser feita de forma a considerar diferença entre maiúsculas e minúsculas (case sensitive). Assim, ao buscar por **foo**, linhas contendo **Foo** não resultarão em uma combinação;
+* Linhas podem ser arbitrariamente longas (ou seja, você pode encontrar caracteres muitos caracteres antes de encontrar uma nova linha, \\n). O **wgrep** deve funcionar como esperado mesmo na presença de linhas muito longas. Por 
+  esse motivo sugiro dar uma olhada na função **getline()** da *libc* (ao invés de usar **fgets()**);
+* Se nenhum argumento de linha de comando for passado para o **wgrep**, ele deve imprimir a mensagem "wgrep: searchterm [file ...]", seguindo de uma nova linha e, em seguida, deve finalizar (chamar **exit()**) com código de 
+  status 1;
+* Se o **wgrep** encontrar um arquivo que não puder ser aberto, ele deve imprimir a mensagem "wgrep: cannot open file", seguido de uma nova linha e, em seguida, finalizar (chamar **exit()**) com código de status 1;
+* Em todos os outros casos, **wgrep** deve encerrar retornando o código de status 0;
+* Se um termo de busca for fornecido como argumento de linha de comando, mas nenhum arquivo for especificado, o **wgrep** irá ler os dados a partir do *standard input*. Fazer isso é fácil, uma vez que o stream **stdin** já é 
+  aberto automaticamente quando o programa é executado. Você pode utilizar a função **fgets()** (ou funções similares) para ler a partir do **stdin**;
+* Por simplicidade, se o usuário passar uma string vazia como o argumento do termo de busca, **wgrep** pode considerar que todas as linhas têm uma correspondência ou nenhuma delas.
 
 ## wzip and wunzip
 
-The next tools you will build come in a pair, because one (**wzip**) is a
-file compression tool, and the other (**wunzip**) is a file decompression
-tool. 
+A próxima ferramenta que você irá desenvolver é, na realidade, um par de programas:
 
-The type of compression used here is a simple form of compression called
-*run-length encoding* (*RLE*). RLE is quite simple: when you encounter **n**
-characters of the same type in a row, the compression tool (**wzip**) will
-turn that into the number **n** and a single instance of the character.
+* **wzip**: realiza a compressão de um ou mais arquivos especificados como argumentos de linha de comando;
+* **wunzip**: realiza a descompressão de um ou mais arquivos especificados como argumentos de linha de comando e que foram comprimidos pelo programa **wzip**. 
 
-Thus, if we had a file with the following contents:
+O tipo de compressão utilizado aqui é uma forma simplificada de um algoritmo de compressão chamado de *run-Length encoding* (*RLE*). O funcionamento do *RLE* é bastante simples: quando uma sequência de **n** caracteres iguais é encontrada em uma linha de um arquivo, essa sequência é escrita na saída padrão como o valor de **n** seguido de uma instância do caracter repetido.
+
+Assim, se temos um arquivo com o seguinte conteúdo:
 ```
 aaaaaaaaaabbbb
 ```
-the tool would turn it (logically) into:
+a ferramenta irá gerar o seguinte resultado:
 ```
 10a4b
 ```
 
-However, the exact format of the compressed file is quite important; here,
-you will write out a 4-byte integer in binary format followed by the single
-character in ASCII. Thus, a compressed file will consist of some number of
-5-byte entries, each of which is comprised of a 4-byte integer (the run
-length) and the single character. 
+Entretanto, note que o formato exato do arquivo comprimido é bastante importante. Para cada sequência de caracteres repetidos encontrada, o **wzip** irá escrever um inteiro de 4 bytes (int) em sua representação binária, seguido do valor ASCII (1 byte) do caracter repetido. Ou seja, o arquivo comprimido será composto por **k** entradas de 5 bytes cada, sendo cada entrada contendo um inteiro de 4 bytes (representando o número de repetições do caractere) e 1 byte representando o caracter em si. 
 
-To write out an integer in binary format (not ASCII), you should use
-**fwrite()**. Read the man page for more details. For **wzip**, all
-output should be written to standard output (the **stdout** file stream,
-which, as with **stdin**, is already open when the program starts running). 
+Para escrever um número inteiro utilizando sua representação binária (não a representação ASCII do número), você deverá utilizar a função **fwrite()** da libc. Leia a página do manual sobre essa função para entender como ela deve ser utilizada. O resultado do programa **wzip** será escrito na saída padrão utilizando o stream **stdout**, que assim como o **stdin** também é aberto automaticamente quando o programa é executado. 
 
-Note that typical usage of the **wzip** tool would thus use shell 
-redirection in order to write the compressed output to a file. For example,
-to compress the file **file.txt** into a (hopefully smaller) **file.z**,
-you would type:
+Observe que o uso típico do programa **wzip** irá utilizar o redirecionamento de saída para gerar um arquivo de saída comprimido. Por exemplo, para comprimir o arquivo **file.txt** de forma a obter o arquivo comprimido **file.z**, você deve executar o programa **wzip** da seguinte forma:
 
 ```
 prompt> ./wzip file.txt > file.z
 ```
 
-The "greater than" sign is a UNIX shell redirection; in this case, it ensures
-that the output from **wzip** is written to the file **file.z** (instead of
-being printed to the screen). You'll learn more about how this works a little
-later in the course.
+O sinal "maior que" é utilizado para redirecionar os dados escritos na saída parão pelo programa da esquerda para o arquivo especificado do lado direito. Caso esse redirecionamento não seja feito, os dados gerados por **wzip** serão impressos na tela. Nós veremos como os redirecionamentos são implementados mais a frente no curso.
 
-The **wunzip** tool simply does the reverse of the **wzip** tool, taking
-in a compressed file and writing (to standard output again) the uncompressed
-results. For example, to see the contents of **file.txt**, you would type:
+O programa **wunzip** simplesmente executa o processo contrário do **wzip**. Ele recebe como argumento um arquivo comprimido pelo **wzip**, faz a descompressão e imprime o resultado também na saída padrão. Por exemplo, para ver o conteúdo original do arquivo **file.txt** a partir do arquivo **file.z**, execute o seguinte comando:
 
 ```
 prompt> ./wunzip file.z
 ```
 
-**wunzip** should read in the compressed file (likely using **fread()**)
-and print out the uncompressed output to standard output using **printf()**.
+O programa **wunzip** deve ler o arquivo comprimido (possivelmente utilizando a função **fread()**) e imprimir a saída descomprimida na saída padrão utilizando a função **printf()**.
 
-**Details**
+**Detalhes**
 
-* Correct invocation should pass one or more files via the command line to the 
-  program; if no files are specified, the program should exit with return code
-  1 and print "wzip: file1 [file2 ...]" (followed by a newline) or
-  "wunzip: file1 [file2 ...]" (followed by a newline) for **wzip** and
-  **wunzip** respectively. 
-* The format of the compressed file must match the description above exactly
-  (a 4-byte integer followed by a character for each run).
-* Do note that if multiple files are passed to **wzip*, they are compressed
-  into a single compressed output, and when unzipped, will turn into a single
-  uncompressed stream of text (thus, the information that multiple files were
-  originally input into **wzip** is lost). The same thing holds for
-  **wunzip**. 
-
-
-### Footnotes
-
-
-<a name="myfootnote1">1</a>: Unfortunately, there is a lot to learn about the
-C library, but at some point, you've just got to **read documentation** to
-learn what is available. Why not now, when you are young? Or, if you are old,
-why not now, before it's ... ahem ... too late?
+* Para a correta invocação dos programas **wzip** e **wunzip**, é necessário passar um ou mais arquivos via linha de comando para serem comprimidos;
+* Se nenhum arquivo for fornecido, o programa deve imprimir a mensagem  "wzip: file1 [file2 ...]" ou "wunzip: file1 [file2 ...]" (seguida de nova linha) e encerrar com código de status 1;
+* O formato do arquivo comprimido deve corresponder exatamente aquele descrito neste documento (inteiro de 4 bytes seguido por um character para cada sequência de caracteres repetidos).
+* Note que se múltiplos arquivos forem passados como argumentos para **wzip**, eles serão comprimidos em uma única saída. Por esse motivo, quando o arquivo comprimido por descomprimido por **wunzip**, o resultado será fluxo único de caracteres (ou seja, a informação de que originalmente múltiplos arquivos fonte deram origem ao arquivo comprimido será perdida). O mesmo pode ser dito sobre o **wunzip**. 
 
 
 
